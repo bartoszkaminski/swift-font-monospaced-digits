@@ -22,23 +22,23 @@
 
 import UIKit
 
-extension UIFont {
-    
-    var monospacedDigitFont: UIFont {
-        let oldFontDescriptor = fontDescriptor()
+public extension UIFont {
+    public var monospacedDigitFont: UIFont {
+        let oldFontDescriptor = fontDescriptor
         let newFontDescriptor = oldFontDescriptor.monospacedDigitFontDescriptor
-        return UIFont(descriptor: newFontDescriptor, size: 0)
+        return UIFont(descriptor: newFontDescriptor, size: pointSize)
     }
-    
 }
 
 private extension UIFontDescriptor {
-    
     var monospacedDigitFontDescriptor: UIFontDescriptor {
-        let fontDescriptorFeatureSettings = [[UIFontFeatureTypeIdentifierKey: kNumberSpacingType, UIFontFeatureSelectorIdentifierKey: kMonospacedNumbersSelector]]
-        let fontDescriptorAttributes = [UIFontDescriptorFeatureSettingsAttribute: fontDescriptorFeatureSettings]
-        let fontDescriptor = self.fontDescriptorByAddingAttributes(fontDescriptorAttributes)
-        return fontDescriptor
+        let attributes = [
+            UIFontDescriptor.AttributeName.featureSettings: [[
+                UIFontDescriptor.FeatureKey.featureIdentifier: kNumberSpacingType,
+                UIFontDescriptor.FeatureKey.typeIdentifier: kMonospacedNumbersSelector
+            ]]
+        ]
+        let fontAttributes = addingAttributes(attributes)
+        return fontAttributes
     }
-    
 }
